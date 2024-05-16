@@ -6,23 +6,25 @@ import { Ingredient } from '../interfaces/ingredient.interface';
   providedIn: 'root',
 })
 export class PanierService {
-  public ingredients$: BehaviorSubject<Ingredient[]> = new BehaviorSubject(
-    null
-  );
+  public ingredients$: BehaviorSubject<Ingredient[] | null> =
+    new BehaviorSubject<Ingredient[] | null>(null);
 
   constructor() {}
 
   public addPanier(ingredients: Ingredient[]): void {
     const currentValue = this.ingredients$.value;
     if (currentValue) {
-      const obj = [...currentValue, ...ingredients].reduce((acc, value) => {
-        if (acc[value.name]) {
-          acc[value.name] += value.quantity;
-        } else {
-          acc[value.name] = value.quantity;
-        }
-        return acc;
-      }, {});
+      const obj = [...currentValue, ...ingredients].reduce(
+        (acc: { [x: string]: number }, value: Ingredient) => {
+          if (acc[value.name]) {
+            acc[value.name] += value.quantity;
+          } else {
+            acc[value.name] = value.quantity;
+          }
+          return acc;
+        },
+        {}
+      );
       const result = Object.keys(obj).map((key) => ({
         name: key,
         quantity: obj[key],
