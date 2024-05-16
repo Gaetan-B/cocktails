@@ -12,7 +12,7 @@ export class PanierService {
 
   constructor() {}
 
-  public addToPanier(ingredients: Ingredient[]): void {
+  public addPanier(ingredients: Ingredient[]): void {
     const currentValue = this.ingredients$.value;
     if (currentValue) {
       const obj = [...currentValue, ...ingredients].reduce((acc, value) => {

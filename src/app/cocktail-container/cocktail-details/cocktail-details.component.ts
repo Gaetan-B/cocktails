@@ -29,7 +29,7 @@ export class CocktailDetailsComponent implements OnInit {
 
   public addToPanier(): void {
     if (this.cocktail) {
-      this.panierService.addToPanier(this.cocktail.ingredients);
+      this.panierService.addPanier(this.cocktail.ingredients);
     }
   }
 }
